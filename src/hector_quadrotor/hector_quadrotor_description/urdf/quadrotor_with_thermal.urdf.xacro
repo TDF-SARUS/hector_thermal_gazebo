@@ -10,10 +10,23 @@
     <!-- Instantiate quadrotor_base_macro once (has no parameters atm) -->
     <xacro:quadrotor_base_macro />
     
-    <!-- Kinect -->
-    <xacro:include filename="$(find hector_sensors_description)/urdf/generic_thermal_camera.urdf.xacro" />
-    <xacro:generic_thermal_camera name="thermal_camera" parent="base_link">
+    <!-- Thermal cam -->
+    <!-- <xacro:include filename="$(find hector_sensors_description)/urdf/generic_thermal_camera.urdf.xacro" />
+    <xacro:generic_thermal_camera name="thermal_camera" parent="base_link" >
       <origin xyz="0.23 0.0 -0.1" rpy="0 ${M_PI/2} 0"/>
-    </xacro:generic_thermal_camera>
+    </xacro:generic_thermal_camera> -->
+    
+    <!-- Downward cam-->
+    <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
+    <xacro:generic_camera name="downward_cam" parent="base_link" ros_topic="camera/image" cam_info_topic="camera/camera_info" update_rate="20" res_x="640" res_y="480" image_format="L8" hfov="100">
+      <origin xyz="0.4 0.0 -0.0" rpy="0 ${M_PI/2} 0"/>
+    </xacro:generic_camera>
+
+    <!-- Forward facing camera -->
+    <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
+    <xacro:generic_camera name="front_cam" parent="base_link" ros_topic="camera/image" cam_info_topic="camera/camera_info" update_rate="10" res_x="320" res_y="240" image_format="R8G8B8" hfov="90">
+      <origin xyz="0.05 0.0 -0.06" rpy="0 ${M_PI/2} 0"/>
+    </xacro:generic_camera>
+
     
 </robot>
