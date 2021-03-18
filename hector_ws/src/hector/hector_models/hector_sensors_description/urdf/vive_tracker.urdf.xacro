@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="vive_tracker" params="name parent *origin">
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+    </joint>
+    
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.089" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />
+      </inertial> 
+      <!-- inertia not measured yet -->
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://hector_sensors_description/meshes/vive_tracker/tracker.stl"/>
+        </geometry>
+        <material name="DarkGrey">
+          <color rgba="0.175 0.175 0.175 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0.021144 -0.003673" rpy="0 0 0" />
+        <geometry>
+          <box size="0.0944 0.0423 0.0921"/> <!-- Bounding box extracted from STL -->
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${name}_link">
+      <material>Gazebo/DarkGrey</material>
+    </gazebo>
+    
+    <gazebo>
+      <plugin name="tracker_odom" filename="libgazebo_ros_p3d.so">
+        <frameName>world</frameName>
+        <bodyName>base_link</bodyName>
+        <topicName>/tracker/odometry</topicName>
+        <updateRate>100.0</updateRate>
+	<!--gaussianNoise>0.0001</gaussianNoise-->
+      </plugin>
+    </gazebo>
+    
+  </xacro:macro>
+
+</robot>
+
