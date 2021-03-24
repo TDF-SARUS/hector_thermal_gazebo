@@ -18,14 +18,14 @@
     
     <!-- Downward cam-->
     <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
-    <xacro:generic_camera name="thermal_cam" parent="base_link" ros_topic="camera/image" cam_info_topic="camera/camera_info" update_rate="20" res_x="640" res_y="480" image_format="L8" hfov="100">
-      <origin xyz="0.4 0.0 -0.0" rpy="0 ${M_PI/4} 0"/>
+    <xacro:generic_camera name="thermal_cam" parent="base_link" ros_topic="camera/image" cam_info_topic="camera/camera_info" update_rate="20" res_x="1024" res_y="768" image_format="L8" hfov="100">
+      <origin xyz="0.4 0.0 -0.0" rpy="0 ${M_PI/9} 0"/>
     </xacro:generic_camera>
 
     <!-- Forward facing camera -->
     <xacro:include filename="$(find hector_sensors_description)/urdf/generic_camera.urdf.xacro" />
-    <xacro:generic_camera name="rgb_cam" parent="base_link" ros_topic="camera/image" cam_info_topic="camera/camera_info" update_rate="20" res_x="640" res_y="480" image_format="R8G8B8" hfov="100">
-      <origin xyz="0.05 0.0 -0.06" rpy="0 ${M_PI/4} 0"/>
+    <xacro:generic_camera name="rgb_cam" parent="base_link" ros_topic="camera/image" cam_info_topic="camera/camera_info" update_rate="20" res_x="1024" res_y="768" image_format="R8G8B8" hfov="100">
+      <origin xyz="0.4 0.0 -0.0" rpy="0 ${M_PI/9} 0"/>
     </xacro:generic_camera>
 
     
