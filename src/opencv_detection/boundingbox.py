@@ -1,9 +1,9 @@
 import cv2
 import matplotlib.pyplot as plt
 
-img = cv2.imread('/home/alex/hector_ws/src/opencv_detection/images/thermal_imgs/left0000.jpg')
+img = cv2.imread('./images/thermal_imgs/left1138.jpg') #La camara RGB va adelantado 1 frame respecto a la termica
 #original = img.copy()
-original = cv2.imread('/home/alex/hector_ws/src/opencv_detection/images/rgb_imgs/left0000.jpg')
+original = cv2.imread('./images/rgb_imgs/left1138.jpg')
 # cv2.imshow('image', img)
 # cv2.waitKey()
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -36,11 +36,10 @@ print(len(cnts))
 for c in range(len(cnts)):
     x,y,w,h = cv2.boundingRect(cnts[c])
   # print(str(x) + ' ' + str(y) + ' ' + str(w) + ' ' + str(h))
-    cv2.rectangle(original, (x, y), (x + w, y + h), (0,0,255), 2)
+    cv2.rectangle(original, (x, y), (x + w, y + h), (0,0,0), 0)
 
     roi = original[y:y+h, x:x+w]
     cv2.imwrite("roi"+str(c)+".jpg", roi)  
 
 cv2.imshow('image', original)
 cv2.waitKey()
-
