@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./devel/setup.bash
+
 gnome-terminal  \
 --tab --title "gazebo_world" --command "bash -c \"
 source ./devel/setup.bash
@@ -18,14 +20,10 @@ source ./devel/setup.bash
 rosservice call /enable_motors true
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py;
 exec bash\"" \
---tab --title "rgb_saver" --command "bash -c \"
-cd ./src/opencv_detection/images/rgb_imgs
-rosrun image_view image_saver image:=/rgb_cam/camera/image _save_all_image:=true __name:=rgb_saver;
-exec bash\"" \
---tab --title "thermal_saver" --command "bash -c \"
-cd ./src/opencv_detection/images/thermal_imgs
-rosrun image_view image_saver image:=/thermal_cam/camera/image _save_all_image:=true __name:=thermal_saver;
-exec bash\"" \ &
+--tab --title "ros_rviz" --command "bash -c \"
+rosrun rviz rviz -d `rospack find tdf_rviz`/rviz_tdf_config.rviz;
+exec bash\""
+
 # --tab --title "enable_save" --command "bash -c \"
 # sleep 3
 # rosservice call /rgb_saver/save & rosservice call /thermal_saver/save;
