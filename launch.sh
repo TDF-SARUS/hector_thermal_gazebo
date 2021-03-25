@@ -17,7 +17,28 @@ gnome-terminal  \
 source ./devel/setup.bash
 rosservice call /enable_motors true
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py;
-exec bash\"" &
+exec bash\"" \
+--tab --title "rgb_saver" --command "bash -c \"
+cd ./src/opencv_detection/images/rgb_imgs
+rosrun image_view image_saver image:=/rgb_cam/camera/image _save_all_image:=true __name:=rgb_saver;
+exec bash\"" \
+--tab --title "thermal_saver" --command "bash -c \"
+cd ./src/opencv_detection/images/thermal_imgs
+rosrun image_view image_saver image:=/thermal_cam/camera/image _save_all_image:=true __name:=thermal_saver;
+exec bash\"" \ &
+# --tab --title "enable_save" --command "bash -c \"
+# sleep 3
+# rosservice call /rgb_saver/save & rosservice call /thermal_saver/save;
+# exec bash\""
+# sleep 20
+# while :
+# do	
+# 	sleep 1
+# 	rosservice call /rgb_saver/save & rosservice call /thermal_saver/save
+# done
+# rosservice call /rgb_saver/save & rosservice call /thermal_saver/save
+# rosrun image_view image_saver image:=/rgb_cam/camera/image _save_all_image:=false __name:=rgb_saver
+# rosrun image_view image_saver image:=/thermal_cam/camera/image _save_all_image:=false __name:=thermal_saver
 
 # gnome-terminal  \
 # --tab --title "ros_rviz" --command "bash -c \"
